@@ -19,11 +19,14 @@ exports.signup = (req, res) => {
         err: "NOT able to save user in DB"
       });
     }
-    res.json({
-      name: user.name,
-      email: user.email,
-      id: user._id
-    });
+    //create token
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET);
+    //put token in cookie
+    res.cookie("token", token, { expire: new Date() + 9999 });
+
+    //send response to front end
+    const { _id, name, email, role } = user;
+    return res.json({ token, user: { _id, name, email, role } });
   });
 };
 
