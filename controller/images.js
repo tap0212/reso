@@ -31,7 +31,7 @@ exports.getImageById = (req, res, next, id) => {
         image.save((err, image) => {
             if (err) {
               res.status(400).json({
-                error: "Saving image in DB failed"
+                error: err
               });
             }
             else{
