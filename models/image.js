@@ -3,8 +3,7 @@ const { ObjectId } = mongoose.Schema;
 const imageSchema = new mongoose.Schema(
     {
         image:{
-            data: Buffer,
-            contentType: String
+            type:String
         },
         user: {
             type: ObjectId,
