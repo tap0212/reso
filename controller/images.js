@@ -19,39 +19,15 @@ exports.getImageById = (req, res, next, id) => {
   };
 
 
-  exports.getImage = (req, res, next) => {
-    if (req.image.image.data) {
-      res.set("Content-Type", req.image.image.contentType);
-      return res.send(req.image.image.data);
-    }
-    next();
+  exports.getImage = (req, res) => {
+    res.json(req.image)
+    
   };
 
   exports.createImage = (req, res) => {
     const id = req.params.userId
-      let form = new formidable.IncomingForm();
-      form.keepExtensions = true;
-      form.parse(req, (err, fields,file) => {
-        if (err) {
-            return res.status(400).json({
-              error: "problem with image"
-            });
-        }
 
-        const {user} = fields;
-
-        let image = new Image(fields)
-
-        if (file.image) {
-            if (file.image.size > 3000000) {
-              return res.status(400).json({
-                error: "File size too big!"
-              });
-            }
-            image.image.data = fs.readFileSync(file.image.path);
-            image.image.contentType = file.image.type;
-        }
-
+    const image = new Image(req.body);
         image.save((err, image) => {
             if (err) {
               res.status(400).json({
@@ -72,6 +48,5 @@ exports.getImageById = (req, res, next, id) => {
                       }
                 })
             }
-          });
-      })
+          });  
   }
