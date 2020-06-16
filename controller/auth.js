@@ -25,8 +25,8 @@ exports.signup = (req, res) => {
     res.cookie("token", token, { expire: new Date() + 9999 });
 
     //send response to front end
-    const { _id, name, email, role } = user;
-    return res.json({ token, user: { _id, name, email, role } });
+    const { _id, name, email, role, age, gender } = user;
+    return res.json({ token, user: { _id, name,age, gender, email, role } });
   });
 };
 
@@ -59,8 +59,8 @@ exports.signin = (req, res) => {
     res.cookie("token", token, { expire: new Date() + 9999 });
 
     //send response to front end
-    const { _id, name, email, role } = user;
-    return res.json({ token, user: { _id, name, email, role } });
+    const { _id, name, email, role, age, gender } = user;
+    return res.json({ token, user: { _id, name,age, gender, email, role } });
   });
 };
 
